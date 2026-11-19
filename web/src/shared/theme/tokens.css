@@ -1,0 +1,46 @@
+/* One place for every colour, size and duration the console uses. Components read these, never raw values. */
+:root {
+  --paper: #eef2f6;
+  --sheet: #ffffff;
+  --ink: #0e1a2b;
+  --ink-2: #4a5768;
+  --ink-3: #6f7b8a;
+  --rule: #d3dbe4;
+  --cell-free: #ffffff;
+  --cell-line: #cfd8e2;
+  --cache: #2a78d6;
+  --cache-alt: #1b5aa6;
+  --cache-small: #8db8ea;
+  --weights: #4a5768;
+  --limit-true: #0e1a2b;
+  --limit-plan: #eb6834;
+  --good: #008300;
+  --serious: #c62f2e;
+  --focus: #2a78d6;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --radius-1: 2px;
+  --radius-2: 6px;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-md: 15px;
+  --text-lg: 19px;
+  --text-xl: 30px;
+  --leading: 1.5;
+
+  --cell-gap: 2px;
+  --strip-height: 18px;
+  --measure: 72ch;
+  --page: 1180px;
+
+  --fast: 160ms;
+  --slow: 420ms;
+}

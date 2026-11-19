@@ -1,0 +1,9 @@
+.git
+web
+reports
+docs
+tests
+evals
+world
+scripts
+**/__pycache__

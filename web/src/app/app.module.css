@@ -1,0 +1,45 @@
+.page {
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-5) var(--space-7);
+  display: grid;
+  gap: var(--space-5);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+.sub {
+  margin: var(--space-1) 0 0;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.nav a {
+  color: var(--ink);
+  text-decoration-color: var(--rule);
+  text-underline-offset: 4px;
+}
+
+.foot {
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+}

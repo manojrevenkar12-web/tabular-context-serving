@@ -1,0 +1,31 @@
+image:
+  repository: europe-west4-docker.pkg.dev/PROJECT/tcs/tcs
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+# One release per GPU pool the plane schedules on; the pool label comes from deploy/terraform (tcs-pool).
+pool: l4
+replicas: 1
+gpus: 1
+
+serviceAccount:
+  name: tcs-api
+  gcpServiceAccount: ""   # terraform output api_service_account
+
+env:
+  TCS_LEDGER: /var/lib/tcs/ledger.sqlite3
+  TCS_DATA_DIR: /var/lib/tcs/bucket
+
+resources:
+  requests:
+    cpu: "4"
+    memory: 24Gi
+  limits:
+    memory: 28Gi
+
+podDisruptionBudget:
+  minAvailable: 1
+
+networkPolicy:
+  enabled: true
+  ingressFromNamespace: ingress

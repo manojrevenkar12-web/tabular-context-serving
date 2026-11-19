@@ -1,0 +1,87 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install (CPU PyTorch)
+        run: |
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install -r requirements-dev.txt
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check tcs world evals tests scripts
+      - name: Tests
+        run: python -m pytest -q
+      - name: README results block is current
+        run: |
+          python -m evals.readme
+          git diff --exit-code README.md
+
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  infra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - name: Terraform
+        working-directory: deploy/terraform
+        run: |
+          terraform fmt -check -diff -recursive
+          terraform init -backend=false
+          terraform validate
+      - uses: azure/setup-helm@v4
+      - name: Helm
+        run: |
+          helm lint deploy/helm/tcs
+          helm template tcs deploy/helm/tcs --set pool=h100 --set serviceAccount.gcpServiceAccount=api@example.iam.gserviceaccount.com > /dev/null
+
+  image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: docker build -t tcs:ci .
+      - name: Serve and answer
+        run: |
+          docker run -d --name tcs -p 8000:8000 tcs:ci
+          for i in $(seq 1 30); do curl -sf localhost:8000/healthz && break; sleep 2; done
+          curl -sf localhost:8000/healthz
+          curl -sf -X POST localhost:8000/v1/datasets -H 'Authorization: Bearer dev-key-acme' -H 'content-type: application/json' \
+            -d '{"X": [[0.1, 1.2], [0.9, 0.3], [0.2, 1.1], [1.0, 0.2]], "y": [0, 1, 0, 1]}'
+          docker logs tcs

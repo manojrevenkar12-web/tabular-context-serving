@@ -1,0 +1,75 @@
+.wrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.table th {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ink-2);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.table th:first-child,
+.table td:first-child {
+  text-align: left;
+}
+
+.table td {
+  text-align: right;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--rule);
+  white-space: nowrap;
+}
+
+.mine td {
+  font-weight: 800;
+}
+
+.mine td:first-child {
+  box-shadow: inset 3px 0 0 var(--cache);
+}
+
+.what {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-3);
+  font-size: var(--text-xs);
+  white-space: normal;
+  max-width: 34ch;
+}
+
+.bar {
+  display: inline-block;
+  height: 6px;
+  border-radius: var(--radius-1);
+  background: var(--cache);
+  margin-left: var(--space-2);
+  vertical-align: middle;
+}
+
+.gates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--ink-2);
+}
+
+.pass {
+  color: var(--good);
+  font-weight: 600;
+}
+
+.fail {
+  color: var(--serious);
+  font-weight: 600;
+}

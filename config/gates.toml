@@ -1,0 +1,11 @@
+# Release gates on the dev campaign. Each compares the platform with the designs on the same seeds.
+
+[gates]
+min_slo_attainment = 0.97
+min_slo_gain_over_llm_style = 0.10
+max_oom_per_1000_requests = 3.0
+max_cost_share_of_llm_style = 0.8
+max_double_charges = 0
+max_served_after_erasure = 0
+max_erasure_residual_bytes = 0
+max_flood_p95_share_of_fifo = 0.8

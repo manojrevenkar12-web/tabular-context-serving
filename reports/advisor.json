@@ -1,0 +1,873 @@
+{
+ "target": 0.97,
+ "seed": 77,
+ "profiles": [
+  {
+   "profile": "small_interactive",
+   "requests": 651,
+   "plan": {
+    "kind": "l4",
+    "count": 2,
+    "eur_per_hour": 1.7,
+    "predicted_slo": 0.9953917050691244
+   },
+   "draft": "Recommended pool: 2 x L4 at EUR 1.70 per hour, expected to answer 99.5% of your requests within their latency target (target 97.0%). Next cheapest that also meets it: 1 x A100 at EUR 4.60 per hour.",
+   "draft_unbacked_numbers": [],
+   "oracle": {
+    "kind": "l4",
+    "count": 2,
+    "eur_per_hour": 1.7
+   },
+   "choices": {
+    "two_h100": {
+     "kind": "h100",
+     "count": 2,
+     "eur_per_hour": 20.0,
+     "true_slo": 1.0,
+     "meets_target": true,
+     "overpay_eur_per_hour": 18.3
+    },
+    "one_card_that_holds_the_largest": {
+     "kind": "l4",
+     "count": 1,
+     "eur_per_hour": 0.85,
+     "true_slo": 0.9631336405529954,
+     "meets_target": false,
+     "overpay_eur_per_hour": -0.85
+    },
+    "advisor": {
+     "kind": "l4",
+     "count": 2,
+     "eur_per_hour": 1.7,
+     "true_slo": 0.9953917050691244,
+     "meets_target": true,
+     "overpay_eur_per_hour": 0.0
+    }
+   }
+  },
+  {
+   "profile": "mixed",
+   "requests": 1302,
+   "plan": {
+    "kind": "a100",
+    "count": 2,
+    "eur_per_hour": 9.2,
+    "predicted_slo": 0.9915514592933948
+   },
+   "draft": "Recommended pool: 2 x A100 at EUR 9.20 per hour, expected to answer 99.2% of your requests within their latency target (target 97.0%). Next cheapest that also meets it: 3 x H100 at EUR 30.00 per hour.",
+   "draft_unbacked_numbers": [],
+   "oracle": {
+    "kind": "a100",
+    "count": 2,
+    "eur_per_hour": 9.2
+   },
+   "choices": {
+    "two_h100": {
+     "kind": "h100",
+     "count": 2,
+     "eur_per_hour": 20.0,
+     "true_slo": 0.999231950844854,
+     "meets_target": true,
+     "overpay_eur_per_hour": 10.8
+    },
+    "one_card_that_holds_the_largest": {
+     "kind": "a100",
+     "count": 1,
+     "eur_per_hour": 4.6,
+     "true_slo": 0.9685099846390169,
+     "meets_target": false,
+     "overpay_eur_per_hour": -4.6
+    },
+    "advisor": {
+     "kind": "a100",
+     "count": 2,
+     "eur_per_hour": 9.2,
+     "true_slo": 0.9946236559139785,
+     "meets_target": true,
+     "overpay_eur_per_hour": 0.0
+    }
+   }
+  },
+  {
+   "profile": "large_contexts",
+   "requests": 446,
+   "plan": {
+    "kind": "h100",
+    "count": 6,
+    "eur_per_hour": 60.0,
+    "predicted_slo": 0.9596412556053812
+   },
+   "draft": "Recommended pool: 6 x H100 at EUR 60.00 per hour, expected to answer 96.0% of your requests within their latency target (target 97.0%).",
+   "draft_unbacked_numbers": [],
+   "oracle": {
+    "kind": "h100",
+    "count": 6,
+    "eur_per_hour": 60.0
+   },
+   "choices": {
+    "two_h100": {
+     "kind": "h100",
+     "count": 2,
+     "eur_per_hour": 20.0,
+     "true_slo": 0.9506726457399103,
+     "meets_target": false,
+     "overpay_eur_per_hour": -40.0
+    },
+    "one_card_that_holds_the_largest": {
+     "kind": "a100",
+     "count": 1,
+     "eur_per_hour": 4.6,
+     "true_slo": 0.874439461883408,
+     "meets_target": false,
+     "overpay_eur_per_hour": -55.4
+    },
+    "advisor": {
+     "kind": "h100",
+     "count": 6,
+     "eur_per_hour": 60.0,
+     "true_slo": 0.9753363228699552,
+     "meets_target": true,
+     "overpay_eur_per_hour": 0.0
+    }
+   }
+  },
+  {
+   "profile": "busy_batch",
+   "requests": 2420,
+   "plan": {
+    "kind": "a100",
+    "count": 1,
+    "eur_per_hour": 4.6,
+    "predicted_slo": 0.9954545454545455
+   },
+   "draft": "Recommended pool: 1 x A100 at EUR 4.60 per hour, expected to answer 99.5% of your requests within their latency target (target 97.0%). Next cheapest that also meets it: 1 x H100 at EUR 10.00 per hour.",
+   "draft_unbacked_numbers": [],
+   "oracle": {
+    "kind": "l4",
+    "count": 2,
+    "eur_per_hour": 1.7
+   },
+   "choices": {
+    "two_h100": {
+     "kind": "h100",
+     "count": 2,
+     "eur_per_hour": 20.0,
+     "true_slo": 0.9991735537190083,
+     "meets_target": true,
+     "overpay_eur_per_hour": 18.3
+    },
+    "one_card_that_holds_the_largest": {
+     "kind": "a100",
+     "count": 1,
+     "eur_per_hour": 4.6,
+     "true_slo": 0.9950413223140496,
+     "meets_target": true,
+     "overpay_eur_per_hour": 2.8999999999999995
+    },
+    "advisor": {
+     "kind": "a100",
+     "count": 1,
+     "eur_per_hour": 4.6,
+     "true_slo": 0.9950413223140496,
+     "meets_target": true,
+     "overpay_eur_per_hour": 2.8999999999999995
+    }
+   }
+  },
+  {
+   "profile": "busy_interactive",
+   "requests": 2998,
+   "plan": {
+    "kind": "a100",
+    "count": 3,
+    "eur_per_hour": 13.799999999999999,
+    "predicted_slo": 0.9896597731821214
+   },
+   "draft": "Recommended pool: 3 x A100 at EUR 13.80 per hour, expected to answer 99.0% of your requests within their latency target (target 97.0%). Next cheapest that also meets it: 2 x A100 at EUR 9.20 per hour.",
+   "draft_unbacked_numbers": [],
+   "oracle": {
+    "kind": "l4",
+    "count": 2,
+    "eur_per_hour": 1.7
+   },
+   "choices": {
+    "two_h100": {
+     "kind": "h100",
+     "count": 2,
+     "eur_per_hour": 20.0,
+     "true_slo": 0.9946631087391594,
+     "meets_target": true,
+     "overpay_eur_per_hour": 18.3
+    },
+    "one_card_that_holds_the_largest": {
+     "kind": "a100",
+     "count": 1,
+     "eur_per_hour": 4.6,
+     "true_slo": 0.9903268845897265,
+     "meets_target": true,
+     "overpay_eur_per_hour": 2.8999999999999995
+    },
+    "advisor": {
+     "kind": "a100",
+     "count": 3,
+     "eur_per_hour": 13.799999999999999,
+     "true_slo": 0.9976651100733822,
+     "meets_target": true,
+     "overpay_eur_per_hour": 12.1
+    }
+   }
+  }
+ ],
+ "summary": {
+  "advisor": {
+   "meets_target": 5,
+   "profiles": 5,
+   "mean_eur_per_hour": 17.86,
+   "mean_overpay_eur_per_hour": 3.0
+  },
+  "two_h100": {
+   "meets_target": 4,
+   "profiles": 5,
+   "mean_eur_per_hour": 20.0,
+   "mean_overpay_eur_per_hour": 5.140000000000001
+  },
+  "one_card_that_holds_the_largest": {
+   "meets_target": 2,
+   "profiles": 5,
+   "mean_eur_per_hour": 3.85,
+   "mean_overpay_eur_per_hour": -11.01
+  }
+ },
+ "truth_grid": [
+  [
+   "small_interactive",
+   "l4",
+   1,
+   0.9631336405529954,
+   0
+  ],
+  [
+   "small_interactive",
+   "l4",
+   2,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "l4",
+   3,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "l4",
+   4,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "l4",
+   5,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "l4",
+   6,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   1,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   2,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   3,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   4,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   5,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "a100",
+   6,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   1,
+   0.9984639016897081,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   2,
+   1.0,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   3,
+   1.0,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   4,
+   1.0,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   5,
+   1.0,
+   0
+  ],
+  [
+   "small_interactive",
+   "h100",
+   6,
+   1.0,
+   0
+  ],
+  [
+   "mixed",
+   "l4",
+   1,
+   0.837173579109063,
+   31
+  ],
+  [
+   "mixed",
+   "l4",
+   2,
+   0.9086021505376344,
+   21
+  ],
+  [
+   "mixed",
+   "l4",
+   3,
+   0.9331797235023042,
+   21
+  ],
+  [
+   "mixed",
+   "l4",
+   4,
+   0.9447004608294931,
+   23
+  ],
+  [
+   "mixed",
+   "l4",
+   5,
+   0.9477726574500768,
+   23
+  ],
+  [
+   "mixed",
+   "l4",
+   6,
+   0.9477726574500768,
+   23
+  ],
+  [
+   "mixed",
+   "a100",
+   1,
+   0.9685099846390169,
+   1
+  ],
+  [
+   "mixed",
+   "a100",
+   2,
+   0.9946236559139785,
+   0
+  ],
+  [
+   "mixed",
+   "a100",
+   3,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "mixed",
+   "a100",
+   4,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "mixed",
+   "a100",
+   5,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "mixed",
+   "a100",
+   6,
+   0.9953917050691244,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   1,
+   0.9815668202764977,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   2,
+   0.999231950844854,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   3,
+   0.999231950844854,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   4,
+   0.999231950844854,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   5,
+   0.999231950844854,
+   0
+  ],
+  [
+   "mixed",
+   "h100",
+   6,
+   0.999231950844854,
+   0
+  ],
+  [
+   "large_contexts",
+   "l4",
+   1,
+   0.9035874439461884,
+   27
+  ],
+  [
+   "large_contexts",
+   "l4",
+   2,
+   0.9103139013452914,
+   27
+  ],
+  [
+   "large_contexts",
+   "l4",
+   3,
+   0.9125560538116592,
+   27
+  ],
+  [
+   "large_contexts",
+   "l4",
+   4,
+   0.9147982062780269,
+   27
+  ],
+  [
+   "large_contexts",
+   "l4",
+   5,
+   0.9147982062780269,
+   27
+  ],
+  [
+   "large_contexts",
+   "l4",
+   6,
+   0.9147982062780269,
+   27
+  ],
+  [
+   "large_contexts",
+   "a100",
+   1,
+   0.874439461883408,
+   0
+  ],
+  [
+   "large_contexts",
+   "a100",
+   2,
+   0.8968609865470852,
+   0
+  ],
+  [
+   "large_contexts",
+   "a100",
+   3,
+   0.9035874439461884,
+   0
+  ],
+  [
+   "large_contexts",
+   "a100",
+   4,
+   0.9170403587443946,
+   0
+  ],
+  [
+   "large_contexts",
+   "a100",
+   5,
+   0.9282511210762332,
+   0
+  ],
+  [
+   "large_contexts",
+   "a100",
+   6,
+   0.9394618834080718,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   1,
+   0.9282511210762332,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   2,
+   0.9506726457399103,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   3,
+   0.9573991031390134,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   4,
+   0.9663677130044843,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   5,
+   0.968609865470852,
+   0
+  ],
+  [
+   "large_contexts",
+   "h100",
+   6,
+   0.9753363228699552,
+   0
+  ],
+  [
+   "busy_batch",
+   "l4",
+   1,
+   0.95,
+   2
+  ],
+  [
+   "busy_batch",
+   "l4",
+   2,
+   0.9962809917355372,
+   3
+  ],
+  [
+   "busy_batch",
+   "l4",
+   3,
+   0.996694214876033,
+   3
+  ],
+  [
+   "busy_batch",
+   "l4",
+   4,
+   0.996694214876033,
+   3
+  ],
+  [
+   "busy_batch",
+   "l4",
+   5,
+   0.996694214876033,
+   3
+  ],
+  [
+   "busy_batch",
+   "l4",
+   6,
+   0.996694214876033,
+   3
+  ],
+  [
+   "busy_batch",
+   "a100",
+   1,
+   0.9950413223140496,
+   1
+  ],
+  [
+   "busy_batch",
+   "a100",
+   2,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "a100",
+   3,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "a100",
+   4,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "a100",
+   5,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "a100",
+   6,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "h100",
+   1,
+   0.9991735537190083,
+   1
+  ],
+  [
+   "busy_batch",
+   "h100",
+   2,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "h100",
+   3,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "h100",
+   4,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "h100",
+   5,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_batch",
+   "h100",
+   6,
+   0.9991735537190083,
+   2
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   1,
+   0.9406270847231488,
+   5
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   2,
+   0.9883255503669113,
+   6
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   3,
+   0.9909939959973315,
+   5
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   4,
+   0.9906604402935291,
+   5
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   5,
+   0.9906604402935291,
+   5
+  ],
+  [
+   "busy_interactive",
+   "l4",
+   6,
+   0.9906604402935291,
+   5
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   1,
+   0.9903268845897265,
+   3
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   2,
+   0.9976651100733822,
+   4
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   3,
+   0.9976651100733822,
+   4
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   4,
+   0.9976651100733822,
+   4
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   5,
+   0.9976651100733822,
+   4
+  ],
+  [
+   "busy_interactive",
+   "a100",
+   6,
+   0.9976651100733822,
+   4
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   1,
+   0.9779853235490327,
+   3
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   2,
+   0.9946631087391594,
+   14
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   3,
+   0.9946631087391594,
+   14
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   4,
+   0.9946631087391594,
+   14
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   5,
+   0.9946631087391594,
+   14
+  ],
+  [
+   "busy_interactive",
+   "h100",
+   6,
+   0.9946631087391594,
+   14
+  ]
+ ]
+}

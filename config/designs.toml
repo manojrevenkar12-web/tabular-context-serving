@@ -1,0 +1,118 @@
+# The designs compared on the same traffic and the same GPUs. Each flag switches one part of the plane.
+
+[baseline]
+description = "Status quo: refit the context on every predict, round-robin, whole-context attention, FIFO, no idempotency keys, erasure deletes the stored dataset only"
+cache = "none"
+routing = "round_robin"
+admission = "fixed"
+batching = false
+queue = "fifo"
+idempotency = false
+quota = false
+host_tier = false
+learn = false
+erasure = "bucket_only"
+
+[llm_style]
+description = "What an LLM serving stack would do: keep KV caches with LRU, send work to the least-loaded GPU, fixed chunks, FIFO"
+cache = "lru"
+routing = "least_loaded"
+admission = "fixed"
+batching = false
+queue = "fifo"
+idempotency = true
+quota = false
+host_tier = false
+learn = false
+erasure = "bucket_only"
+
+[platform]
+description = "This plane: cache-aware routing with single-flight fits, memory-predicted chunking learned from telemetry, same-context batching, value-based eviction with a host-RAM tier, fair queues and quotas, idempotent ledger, verified erasure"
+cache = "value"
+routing = "cache_aware"
+admission = "memory_model"
+batching = true
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = true
+learn = true
+erasure = "purge_verify"
+
+[no_cache_routing]
+description = "The plane, but work goes to the least-loaded GPU whatever caches it holds"
+cache = "value"
+routing = "least_loaded"
+admission = "memory_model"
+batching = true
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = true
+learn = true
+erasure = "purge_verify"
+
+[fixed_chunks]
+description = "The plane, but whole-context attention with no memory model"
+cache = "value"
+routing = "cache_aware"
+admission = "fixed"
+batching = true
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = true
+learn = true
+erasure = "purge_verify"
+
+[no_learning]
+description = "The plane, but the memory and time models stay at the benchmark prior"
+cache = "value"
+routing = "cache_aware"
+admission = "memory_model"
+batching = true
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = true
+learn = false
+erasure = "purge_verify"
+
+[no_batching]
+description = "The plane, but each request runs on its own"
+cache = "value"
+routing = "cache_aware"
+admission = "memory_model"
+batching = false
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = true
+learn = true
+erasure = "purge_verify"
+
+[fifo_no_quota]
+description = "The plane, but one FIFO queue per GPU and no tenant quotas"
+cache = "value"
+routing = "cache_aware"
+admission = "memory_model"
+batching = true
+queue = "fifo"
+idempotency = true
+quota = false
+host_tier = true
+learn = true
+erasure = "purge_verify"
+
+[lru_no_host]
+description = "The plane, but LRU eviction and no host-RAM tier"
+cache = "lru"
+routing = "cache_aware"
+admission = "memory_model"
+batching = true
+queue = "fair"
+idempotency = true
+quota = true
+host_tier = false
+learn = true
+erasure = "purge_verify"

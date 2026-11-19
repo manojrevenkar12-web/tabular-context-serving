@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tcs
+description: tabular-context-serving API (plane and PyTorch worker) on a GKE GPU pool
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tcs.name" . }}
+  labels:
+    {{- include "tcs.labels" . | nindent 4 }}
+spec:
+  selector:
+    app.kubernetes.io/name: tcs-api
+    tcs/pool: {{ .Values.pool }}
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

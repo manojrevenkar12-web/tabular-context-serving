@@ -1,0 +1,13 @@
+# Google Cloud Managed Service for Prometheus scrapes /metrics (cache hits, fits, OOM, resident cache bytes).
+apiVersion: monitoring.googleapis.com/v1
+kind: PodMonitoring
+metadata:
+  name: {{ include "tcs.name" . }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tcs-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s

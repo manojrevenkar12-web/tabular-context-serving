@@ -1,0 +1,71 @@
+.panel {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-2);
+  padding: var(--space-5);
+}
+
+.panelTitle {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.panelLead {
+  margin: 0 0 var(--space-4);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  max-width: var(--measure);
+}
+
+.skeleton {
+  border-radius: var(--radius-1);
+  background: linear-gradient(90deg, var(--paper), var(--sheet), var(--paper));
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+  margin-bottom: var(--space-2);
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.state {
+  padding: var(--space-4);
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius-2);
+}
+
+.stateTitle {
+  margin: 0 0 var(--space-1);
+  font-weight: 600;
+}
+
+.stateText {
+  margin: 0 0 var(--space-3);
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  max-width: var(--measure);
+}
+
+.button {
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--sheet);
+  background: var(--ink);
+  border: 0;
+  border-radius: var(--radius-1);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--ink-2);
+}

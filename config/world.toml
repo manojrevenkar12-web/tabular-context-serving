@@ -1,0 +1,129 @@
+# The simulated world: GPUs, their true memory and speed, and the traffic. The platform never reads this file.
+# Numbers are set so that one H100 fits a 1M-row context with eight estimators (as Prior Labs documents for
+# TabPFN-3) and runs out of memory when a large context is attended without chunking.
+
+[campaign]
+dev_seeds = [101, 202, 303, 404]
+hours = 6.0
+erasure_deadline_s = 900.0
+
+[model]
+estimators = 8
+
+# True cost of a job on an H100 (speed 1.0); slower GPUs divide by their speed.
+[physics]
+fit_s_per_cell = 3.0e-7          # per training cell, all estimators
+fit_s_per_row_pow = 1.6e-7       # times rows ** row_exponent
+row_exponent = 1.3
+predict_s_per_unit = 5.0e-7      # times test rows * sqrt(training rows)
+job_overhead_s = 0.04
+chunk_overhead_s = 0.002         # per chunk per estimator
+cache_bytes_per_row = 4300.0     # per estimator
+cache_bytes_per_cell = 18.0      # per estimator
+fit_bytes_per_cell = 42.0        # transient, all estimators running in parallel
+fit_bytes_per_chunk_unit = 64.0  # times train chunk rows * sqrt(training rows) * estimators
+predict_bytes_per_unit = 104.0   # times test chunk rows * sqrt(training rows) * estimators
+weights_bytes = 2.2e9
+noise_sigma = 0.08               # lognormal, per job, on time and on memory
+fragmentation_per_cache = 0.002  # share of HBM lost per resident cache (hidden from the platform)
+pcie_bytes_per_s = 2.0e10
+
+[[gpu]]
+name = "h100-0"
+kind = "h100"
+hbm_bytes = 8.0e10
+speed = 1.0
+eur_per_hour = 10.0
+reserved_share = 0.07            # driver, CUDA context, allocator slack: hidden
+host_bytes = 2.0e11
+
+[[gpu]]
+name = "h100-1"
+kind = "h100"
+hbm_bytes = 8.0e10
+speed = 1.0
+eur_per_hour = 10.0
+reserved_share = 0.07
+host_bytes = 2.0e11
+
+[[gpu]]
+name = "a100-0"
+kind = "a100"
+hbm_bytes = 8.0e10
+speed = 0.55
+eur_per_hour = 4.6
+reserved_share = 0.06
+host_bytes = 2.0e11
+
+[[gpu]]
+name = "a100-1"
+kind = "a100"
+hbm_bytes = 8.0e10
+speed = 0.55
+eur_per_hour = 4.6
+reserved_share = 0.06
+host_bytes = 2.0e11
+
+[[gpu]]
+name = "l4-0"
+kind = "l4"
+hbm_bytes = 2.4e10
+speed = 0.18
+eur_per_hour = 0.85
+reserved_share = 0.09
+host_bytes = 6.4e10
+
+[[gpu]]
+name = "l4-1"
+kind = "l4"
+hbm_bytes = 2.4e10
+speed = 0.18
+eur_per_hour = 0.85
+reserved_share = 0.09
+host_bytes = 6.4e10
+
+[[gpu]]
+name = "l4-2"
+kind = "l4"
+hbm_bytes = 2.4e10
+speed = 0.18
+eur_per_hour = 0.85
+reserved_share = 0.09
+host_bytes = 6.4e10
+
+[[gpu]]
+name = "l4-3"
+kind = "l4"
+hbm_bytes = 2.4e10
+speed = 0.18
+eur_per_hour = 0.85
+reserved_share = 0.09
+host_bytes = 6.4e10
+
+[traffic]
+tenants = 36
+sessions_per_hour = 340.0
+predicts_per_session_mean = 7.0
+session_minutes_mean = 40.0
+rows_min = 1000
+rows_max = 1000000
+rows_pareto_alpha = 0.55          # share of large contexts
+features_min = 5
+features_max = 200
+test_rows_min = 1
+test_rows_max = 20000
+interactive_share = 0.6           # predicts of <= 500 rows, the client waits
+retry_share = 0.03                # client resends with the same idempotency key
+retry_delay_s = 4.0
+flood_tenant_share = 0.28         # one tenant sends this share of sessions in bursts
+flood_burst_minutes = 25.0
+flood_predicts_multiplier = 2.5
+erasure_tenants = 3
+after_erasure_requests = 6        # requests the erased tenant's old jobs still send
+
+[slo]
+interactive_s = 3.0
+interactive_s_per_100k_train_rows = 4.0
+batch_s_base = 30.0
+batch_s_per_k_test_rows = 1.5
+batch_s_per_100k_train_rows = 6.0

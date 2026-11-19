@@ -23,3 +23,26 @@ as the dev world's, because the plane is configured with that inventory. Everyth
 
 The run is locked: `reports/heldout.lock` records the commit, and the runner refuses a second run. Results are in the
 README, as they came out.
+
+## Result (run once at the commit in reports/heldout.lock)
+
+The platform still leads every other design, but it **fails the SLO gate**: 94.4% of requests within their SLO,
+against a gate of 97%. The cost, out-of-memory, idempotency, erasure and fairness gates pass.
+
+- **What fell:** interactive requests. 92.5% of them met their SLO, against 98.8% in the dev world, and their p95
+  went from 2.9 s to 24.9 s. Batch requests held up (98.8%).
+- **What changed:** the fleet did about twice the work (busy GPU cost EUR 14.0 per hour against EUR 6.7), because
+  of more large contexts, slower fits (rows^1.36) and a throttled L4.
+- **Likely cause (a hypothesis, not yet tested):** a GPU runs one job at a time and nothing preempts. An
+  interactive request routed to a card that has just started fitting a large context waits for that whole fit. The
+  fair queue orders tenants, not urgency.
+- **Candidate fixes, for a new held-out world:**
+  - a priority lane for interactive work;
+  - keeping one card per kind free of large fits;
+  - yielding between attention chunks, which the chunked fit already makes possible.
+
+Two ablations matter more here than in the dev world, which is useful in itself: without same-context batching the
+SLO share drops to 91.3%, and with FIFO queues and no quotas to 77.5%.
+
+Nothing in the plane was changed after this run. Per AGENTS.md, any fix needs a new held-out world before anything
+is claimed about it.

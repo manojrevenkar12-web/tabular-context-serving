@@ -75,6 +75,31 @@ Release gates (config/gates.toml):
 | erasure residual bytes | 0 | pass |
 | flood p95 share of fifo | 0.391 | pass |
 
+**Held-out world** (run once at commit `fc9c3e6`, behind `reports/heldout.lock`): different hidden memory and speed coefficients, allocator overhead and noise, a throttled L4, more large contexts, a heavier flood, more retries. See docs/heldout.md.
+
+| Design | Requests in SLO | Interactive p95 | OOM errors / day | Failed requests | GPU EUR per M rows | Cache hit rate |
+|---|---:|---:|---:|---:|---:|---:|
+| **platform** | 94.4% | 24.9 s | 32 | 20 | 1.17 | 61.8% |
+| baseline | 32.8% | 28,250.0 s | 7,759 | 1,212 | 2.02 | 0.0% |
+| llm_style | 21.3% | 2,738.3 s | 8,013 | 1,359 | 2.33 | 7.9% |
+| no_cache_routing | 88.2% | 35.5 s | 48 | 55 | 1.54 | 29.7% |
+| fixed_chunks | 82.1% | 3.5 s | 9,621 | 2,023 | 1.60 | 69.5% |
+| no_learning | 79.4% | 32.4 s | 11,440 | 1,736 | 1.54 | 63.0% |
+| no_batching | 91.3% | 31.2 s | 32 | 20 | 1.32 | 60.0% |
+| fifo_no_quota | 77.5% | 106.5 s | 32 | 20 | 1.39 | 49.6% |
+| lru_no_host | 94.4% | 25.0 s | 28 | 20 | 1.18 | 61.1% |
+
+| Gate | Value | Result |
+|---|---:|---|
+| slo attainment | 0.9437 | **fail** |
+| slo gain over llm style | 0.7311 | pass |
+| oom per 1000 requests | 2.511 | pass |
+| cost share of llm style | 0.5046 | pass |
+| double charges | 0 | pass |
+| served after erasure | 0 | pass |
+| erasure residual bytes | 0 | pass |
+| flood p95 share of fifo | 0.2274 | pass |
+
 **The real model** (`scripts/bench.py`, PyTorch on this machine's CPU, 137,290 parameters):
 
 - Cached and chunked predictions match the uncached forward pass to 3.3e-07 (largest absolute difference in a probability).
@@ -203,6 +228,9 @@ PodDisruptionBudget, a NetworkPolicy and a PodMonitoring for `/metrics`. CI chec
   - The euro figures, which are busy GPU time at list-like hourly prices, as if every pool scaled to zero when idle.
 - **The small model is not TabPFN.** It has about 140k parameters and was trained for minutes on a synthetic prior.
   It has no row compression, so its attention memory grows with the context instead of its square root.
+- **The held-out world failed one gate.** Interactive requests waited behind long fits on a busier fleet, so 94.4%
+  of requests met their SLO against a gate of 97%. The analysis is in docs/heldout.md; the plane was not changed
+  after the run.
 - **Known weak spots, from the numbers:**
   - Value-based eviction with a host tier is no better than LRU at this load (`lru_no_host`).
   - Batching adds little, because same-context requests rarely queue together here.

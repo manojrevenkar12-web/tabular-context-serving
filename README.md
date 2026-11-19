@@ -22,7 +22,7 @@ This repository builds that serving path end to end:
 
 <!-- results:start -->
 
-Dev campaign: 4 seeds × 6 simulated hours on 8 GPUs (2 H100, 2 A100, 4 L4), 14,824 customer requests a day plus a flooding tenant, every design on the same traffic. Commit `HEAD`.
+Dev campaign: 4 seeds × 6 simulated hours on 8 GPUs (2 H100, 2 A100, 4 L4), 14,824 customer requests a day plus a flooding tenant, every design on the same traffic. Commit `4c1b37d`.
 
 | | Status quo | LLM-style serving | **This plane** |
 |---|---:|---:|---:|
